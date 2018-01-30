@@ -3,6 +3,8 @@ package issuer.rest;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,24 @@ import issuer.repository.TransakcijaRepository;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-
+	
+	@PostConstruct
+	public void init() {
+	
+		CardHolder cardHolder = new CardHolder(); 
+		cardHolder.setName("Pera");
+		cardHolderRepository.save(cardHolder); 
+		
+		IssuedCard issuedCard = new IssuedCard(); 
+		issuedCard.setBalance(new BigDecimal("10000.0"));
+		issuedCard.setCardHolder(cardHolder);
+		issuedCard.setExpiration(new Date(1546210800000L));
+		issuedCard.setPan("123456789");
+		issuedCard.setSecurityCode("123");
+		issuedCard = issuedCardRepository.save(issuedCard); 
+	
+	}
+	
 	@Autowired
 	private IssuedCardRepository issuedCardRepository; 
 

@@ -41,7 +41,8 @@ public class IssuerController {
 	@Autowired
 	private TransakcijaRepository transakcijaRepository; 
 	
-	private RestTemplate rt = new RestTemplate();
+	@Autowired
+	private RestTemplate rt;
 
 	private final Log logger = LogFactory.getLog(this.getClass()); 			
 			
